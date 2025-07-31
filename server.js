@@ -48,6 +48,7 @@ const Parkingslots = mongoose.model('Parkingslots', dynamicSchema, 'parking_slot
 const SystemConfig = mongoose.model('SystemConfig', dynamicSchema, 'parking_lots');
 const Alert = mongoose.model('Alert', dynamicSchema, 'alerts');
 const Shifts = mongoose.model('Shifts', dynamicSchema, 'shifts');
+const transactions = mongoose.model('transactions', dynamicSchema, 'transactions');
 
 // ✅ API: Đăng nhập người dùng
 app.post('/api/login', async (req, res) => {
@@ -185,6 +186,16 @@ app.get('/api/shifts', async (req, res) => {
         res.status(500).json({ message: 'Lỗi server', err });
     }
 });
+// ✅ API: Lấy danh sách xe trả tiền
+app.get('/api/transactions', async (req, res) => {
+    try {
+        const data = await transactions.find({});
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ message: 'Lỗi server', err });
+    }
+});
+
 
 
 // ✅ Khởi động server
